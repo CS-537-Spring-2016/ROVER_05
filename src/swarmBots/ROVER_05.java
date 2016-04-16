@@ -318,7 +318,7 @@ public class ROVER_05 {
 		return null;
 	}
 	
-	
+	//main rover functionality 
 
 	/**
 	 * Runs the client
