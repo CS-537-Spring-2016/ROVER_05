@@ -190,7 +190,7 @@ public class ROVER_05 {
 			out.println("LOC");
 			line = in.readLine();
 			if(line == null){
-				System.out.println("ROVER_05 check connection to server");
+				System.out.println("ROVER_05 check connection to server...");
 				line = "";
 			}
 			if (line.startsWith("LOC")) {
@@ -212,7 +212,7 @@ public class ROVER_05 {
 			
 			Thread.sleep(sleepTime);
 			
-			System.out.println("ROVER_05 ------------ bottom process control --------------"); 
+			System.out.println("ROVER_05 -------- bottom process control --------"); 
 		}
 
 	}
