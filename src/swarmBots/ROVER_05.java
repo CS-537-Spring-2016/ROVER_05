@@ -239,14 +239,14 @@ public class ROVER_05 {
 			jsonEqListIn = "";
 		}
 		StringBuilder jsonEqList = new StringBuilder();
-		//System.out.println("ROVER_05 incomming EQUIPMENT result - first readline: " + jsonEqListIn);
+		//System.out.println("ROVER_05 incoming EQUIPMENT result - first readline: " + jsonEqListIn);
 		
 		if(jsonEqListIn.startsWith("EQUIPMENT")){
 			while (!(jsonEqListIn = in.readLine()).equals("EQUIPMENT_END")) {
 				if(jsonEqListIn == null){
 					break;
 				}
-				//System.out.println("ROVER_05 incomming EQUIPMENT result: " + jsonEqListIn);
+				//System.out.println("ROVER_05 incoming EQUIPMENT result: " + jsonEqListIn);
 				jsonEqList.append(jsonEqListIn);
 				jsonEqList.append("\n");
 				//System.out.println("ROVER_05 doScan() bottom of while");
