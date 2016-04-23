@@ -198,7 +198,7 @@ public class ROVER_05 {
 				currentLoc = extractLOC(line);
 			}
 
-			//System.out.println("ROVER_05 currentLoc after recheck: " + currentLoc);
+			//System.out.println("ROVER_05 currentLoc after Re-check: " + currentLoc);
 			//System.out.println("ROVER_05 previousLoc: " + previousLoc);
 
 			// test for stuckness
