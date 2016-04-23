@@ -22,7 +22,7 @@ public class DirectionStrategy {
 		int xCor=loc.getX();
 		int yCor=loc.getX();
 		
-		//sense the things using range extender and more decision
+		//sense the things using range extender and make decision
 		
 	}
 
@@ -33,7 +33,7 @@ public class DirectionStrategy {
 		int xCor=loc.getX();
 		int yCor=loc.getX();
 		
-		//sense the things using range extender and more decision
+		//sense the things using range extender and make decision
 
 				
 
@@ -46,7 +46,7 @@ public class DirectionStrategy {
 		int xCor=loc.getX();
 		int yCor=loc.getX();
 		
-		//sense the things using range extender and more decision
+		//sense the things using range extender and make decision
 
 		
 		
@@ -60,7 +60,7 @@ public class DirectionStrategy {
 		int xCor=loc.getX();
 		int yCor=loc.getX();
 		
-		//sense the things using range extender and more decision
+		//sense the things using range extender and make decision
 
 
 	}
