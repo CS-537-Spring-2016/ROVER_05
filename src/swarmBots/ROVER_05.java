@@ -228,13 +228,13 @@ public class ROVER_05 {
 	}
 	
 
-	// method to retrieve a list of the rover's equipment from the server
+	// method to retrieve a list of the rover's equipment from the Server
 	private ArrayList<String> getEquipment() throws IOException {
 		//System.out.println("ROVER_05 method getEquipment()");
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		out.println("EQUIPMENT");
 		
-		String jsonEqListIn = in.readLine(); //grabs the string that was returned first
+		String jsonEqListIn = in.readLine(); //Grabs the string that was returned first
 		if(jsonEqListIn == null){
 			jsonEqListIn = "";
 		}
