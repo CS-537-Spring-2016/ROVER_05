@@ -167,6 +167,15 @@ public class ROVER_05 {
 						out.println("MOVE S");
 						//System.out.println("ROVER_05 request move S");
 					}
+					if (scanMapTiles[centerIndex][centerIndex +1].getHasRover() 
+							|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND
+							|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE) {
+						blocked = true;
+					} else {
+						// request to server to move
+						out.println("MOVE S");
+						//System.out.println("ROVER_05 request move S");
+					}
 					
 				} else {
 					// check scanMap to see if path is blocked to the north
@@ -183,6 +192,15 @@ public class ROVER_05 {
 						out.println("MOVE N");
 						//System.out.println("ROVER_05 request move N");
 					}					
+					if (scanMapTiles[centerIndex][centerIndex -1].getHasRover() 
+							|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND
+							|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE) {
+						blocked = true;
+					} else {
+						// request to server to move
+						out.println("MOVE S");
+						//System.out.println("ROVER_05 request move S");
+					}
 				}
 			}
 
