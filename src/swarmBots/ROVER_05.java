@@ -82,6 +82,7 @@ public class ROVER_05 {
 		String line = "";
 
 		boolean goingSouth = false;
+		boolean goingEast = true;//Moving East 23/04/2016
 		boolean stuck = false; // just means it did not change locations between requests,
 								// could be velocity limit or obstruction etc.
 		boolean blocked = false;
@@ -168,6 +169,17 @@ public class ROVER_05 {
 						out.println("MOVE S");
 						//System.out.println("ROVER_05 request move S");
 					}
+					//23/04/2015
+					if (scanMapTiles[centerIndex][centerIndex +1].getHasRover() 
+							|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND
+							|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE) {
+						blocked = true;
+					} else {
+						// request to server to move
+						out.println("MOVE S");
+						//System.out.println("ROVER_05 request move S");
+					}
+					//23/04/2016
 					
 				} else {
 					// check scanMap to see if path is blocked to the north
@@ -183,10 +195,41 @@ public class ROVER_05 {
 						// request to server to move
 						out.println("MOVE N");
 						//System.out.println("ROVER_05 request move N");
-					}					
+					}
+					if (scanMapTiles[centerIndex][centerIndex -1].getHasRover() 
+							|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND
+							|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE) {
+						blocked = true;
+					} else {
+						// request to server to move
+						out.println("MOVE S");
+						//System.out.println("ROVER_05 request move S");
+					}
 				}
 			}
 
+			// Moving East 23/04/2016
+
+			MapTile[][] scanMapTiles = scanMap.getScanMap();
+			int centerIndex = (scanMap.getEdgeSize() - 1)/2;
+			// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
+			
+
+			if (goingEast) {
+				// Checks to see if there is science on current tile, if not it moves East
+				System.out.println("ROVER_98: scanMapTiles[centerIndex][centerIndex].getScience().getSciString() " + scanMapTiles[centerIndex][centerIndex].getScience().getSciString());
+				if (!scanMapTiles[centerIndex][centerIndex].getScience().getSciString().equals("N")) {
+					System.out.println("ROVER_98 request GATHER");
+					out.println("GATHER");
+					
+				} else {
+					// request to server to move
+					out.println("MOVE E");
+					System.out.println("ROVER_98 request move E");
+				}
+				
+			} 	
+			//Moving East
 			// another call for current location
 			out.println("LOC");
 			line = in.readLine();
