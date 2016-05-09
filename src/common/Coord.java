@@ -3,11 +3,18 @@ package common;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import enums.Science;
+import enums.Terrain;
+
 public class Coord {
 	public int xpos;
+	Terrain terrain;
+    boolean hasRover;
+    Science science;
+    
 	@Override
 	public String toString() {
-		return "Coord [xpos=" + xpos + ", ypos=" + ypos + "]";
+	    return terrain + " " + science + " " + xpos + " " + ypos;
 	}
 
 	public int ypos;
@@ -16,6 +23,12 @@ public class Coord {
 		this.xpos = x;
 		this.ypos = y;
 	}
+	
+    public Coord(Terrain terrain, Science science, int x, int y) {
+        this(x, y);
+        this.science = science;
+        this.terrain = terrain;
+    }
 	
     @Override
     public int hashCode() {
