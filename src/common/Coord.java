@@ -1,6 +1,5 @@
 package common;
 
-
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import enums.Science;
@@ -57,6 +56,7 @@ public class Coord implements Comparable<Coord> {
         // isEquals();
         return ((this.xpos == theOther.xpos) && (this.ypos == theOther.ypos));
     }
+
 
     //new 
     @Override
