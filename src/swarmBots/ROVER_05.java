@@ -43,6 +43,9 @@ public class ROVER_05 {
 		sleepTime = 300; // in milliseconds - smaller is faster, but the server will cut connection if it is too small
 	}
 	
+	
+	
+	
 	public ROVER_05(String serverAddress) {
 		// constructor
 		System.out.println("ROVER_05 rover object constructed");
