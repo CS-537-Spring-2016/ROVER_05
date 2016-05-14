@@ -17,6 +17,8 @@ public class Rover {
 	private long lastRequestTime;
 	private int requestCount;
 	
+	
+	
 	// public for the arrayList just because it is easier to deal with than getters/setters
     public ArrayList<Science> scienceCargo;
 	

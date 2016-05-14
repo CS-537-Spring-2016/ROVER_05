@@ -17,6 +17,8 @@ public class Coord {
 		this.ypos = y;
 	}
 	
+	
+	
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
