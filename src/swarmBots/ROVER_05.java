@@ -507,23 +507,6 @@ public class ROVER_05 {
 
 		}
 	}
-	
-	
-	public String switchDirectionEdge(MapTile[][] scanMapTiles, String direction) {
-		switch (direction) {
-		case "E":
-			return west;
-		case "S":
-			return east;
-		case "N":
-			return south;
-		case "W":
-			return north;
-		default:
-			return null;
-
-		}
-	}
 
 	// Move
 	public void make_a_move(MapTile[][] scanMapTiles, Coord currentLoc) throws IOException {
@@ -531,7 +514,7 @@ public class ROVER_05 {
 		int x = centerIndex, y = centerIndex;
 		
 
-//		out.println("TIMER");
+//out.println("TIMER");
 //		String line = in.readLine();
 //		int time = 0;
 //		if (line == null) {
