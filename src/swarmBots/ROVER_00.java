@@ -53,6 +53,8 @@ public class ROVER_00 {
 
 	/**
 	 * Connects to the server then enters the processing loop.
+	 * 
+	 * 
 	 */
 	private void run() throws IOException, InterruptedException {
 
