@@ -308,6 +308,7 @@ public class ROVER_05 {
 
 	/**
 	 * Runs the client
+	 * 
 	 */
 	public static void main(String[] args) throws Exception {
 		ROVER_05 client = new ROVER_05();
