@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -18,7 +16,10 @@ import com.google.gson.reflect.TypeToken;
 import common.Coord;
 import common.MapTile;
 import common.ScanMap;
-import enums.Science;
+import communication.Group;
+import communication.RoverCommunication;
+import enums.RoverDriveType;
+import enums.RoverToolType;
 import enums.Terrain;
 
 /**
@@ -49,7 +50,10 @@ public class ROVER_05 {
 	String east = "E";
 	String west = "W";
 	String direction = west;
-
+	
+	/* Communication Module*/
+    RoverCommunication rocom;
+    
 	public ROVER_05() {
 		// constructor
 		System.out.println("ROVER_05 rover object constructed");
@@ -66,6 +70,8 @@ public class ROVER_05 {
 		SERVER_ADDRESS = serverAddress;
 		sleepTime = 200; // in milliseconds - smaller is faster, but the server will cut connection if it is too small
 	}
+	
+	
 
 	private void run() throws IOException, InterruptedException {
 
@@ -74,6 +80,19 @@ public class ROVER_05 {
 		Socket socket = new Socket(SERVER_ADDRESS, PORT_ADDRESS); // set port here
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
+		
+		
+        // ******************* SET UP COMMUNICATION MODULE by Shay
+        // *********************
+        /* Your Group Info */
+        Group group = new Group(rovername, SERVER_ADDRESS, 53705, RoverDriveType.WHEELS,
+                RoverToolType.RANGE_BOOSTER, RoverToolType.SPECTRAL_SENSOR);
+
+        /* Setup communication, only communicates with gatherers */
+        rocom = new RoverCommunication(group);
+        rocom.setGroupList(Group.getGatherers());
+
+        // ****************************************************************
 
 		//Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -169,6 +188,12 @@ public class ROVER_05 {
 			// test for stuckness
 
 			System.out.println("ROVER_05 stuck test " + stuck);
+
+			
+			
+            /* ********* Detect and Share Science by Shay ***************/
+            rocom.detectAndShare(scanMap.getScanMap(), currentLoc, 5);
+            /* *************************************************/
 			
 			Thread.sleep(sleepTime);
 
@@ -178,7 +203,6 @@ public class ROVER_05 {
 	}
 
 	// ################ Support Methods ###########################
-
 	private void clearReadLineBuffer() throws IOException {
 		while (in.ready()) {
 		
@@ -281,6 +305,7 @@ public class ROVER_05 {
 
 	/**
 	 * Runs the client
+	 * 
 	 */
 	public static void main(String[] args) throws Exception {
 		ROVER_05 client = new ROVER_05();
@@ -365,7 +390,6 @@ public class ROVER_05 {
 
 		}
 	}
-	
 	
 	public String switchDirectionEdge(MapTile[][] scanMapTiles, String direction) {
 		switch (direction) {
