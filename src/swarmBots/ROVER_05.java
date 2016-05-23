@@ -90,10 +90,8 @@ public class ROVER_05 {
                 RoverToolType.RANGE_BOOSTER, RoverToolType.SPECTRAL_SENSOR);
 
         /* Setup communication, only communicates with gatherers */
-        rocom = new RoverCommunication(group, Group.getGatherers(Group.blueCorp(SERVER_ADDRESS)));
-
-        /* Connect to the other ROVERS */
-        rocom.run();
+        rocom = new RoverCommunication(group);
+        rocom.setGroupList(Group.getGatherers());
 
         // ****************************************************************
 
