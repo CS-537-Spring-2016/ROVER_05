@@ -192,6 +192,7 @@ public class ROVER_05 {
 			
 			
             /* ********* Detect and Share Science by Shay ***************/
+			doScan();
             rocom.detectAndShare(scanMap.getScanMap(), currentLoc, 5);
             /* *************************************************/
 			
