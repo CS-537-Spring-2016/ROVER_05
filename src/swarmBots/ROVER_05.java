@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -50,6 +51,7 @@ public class ROVER_05 {
 	String east = "E";
 	String west = "W";
 	String direction = west;
+	ArrayList<String> previousrandoms = new ArrayList<String>();
 	
 	/* Communication Module*/
     RoverCommunication rocom;
@@ -414,18 +416,18 @@ public class ROVER_05 {
 		int x = centerIndex, y = centerIndex;
 		
 
-//		out.println("TIMER");
-//		String line = in.readLine();
-//		int time = 0;
-//		if (line == null) {
-//			System.out.println(rovername + " check connection to server");
-//			line = "";
-//		}
-//		if (line.startsWith("TIMER")) {
-//			String timeRemaining = line.substring(6);
-//			time = Integer.parseInt(timeRemaining);
-//			System.out.println(rovername + " timeRemaining: " + timeRemaining);
-//		}
+     	out.println("TIMER");
+    	String line = in.readLine();
+	    int time = 0;
+		if (line == null) {
+			System.out.println(rovername + " check connection to server");
+			line = "";
+		}
+		if (line.startsWith("TIMER")) {
+			String timeRemaining = line.substring(6);
+			time = Integer.parseInt(timeRemaining);
+			System.out.println(rovername + " timeRemaining: " + timeRemaining);
+		}
 //
 //		if (time <= 120000) {
 //			i = 2;
@@ -460,10 +462,37 @@ public class ROVER_05 {
 
 			while (!isValidMove(scanMapTiles, direction)) {
 
-				direction = switchDirection(scanMapTiles, direction);
+				direction = changeRoverDirection(direction);
 			}
 			move(direction);
 		}
+		
+	}
+	private String changeRoverDirection(String direction) {
+		ArrayList<String> directions = new ArrayList<String>();
+		directions.add("E");
+		directions.add("W");
+		directions.add("N");
+		directions.add("S");
+		Random randomgenerator = new Random();
+		String direct = null;
+		if (directions.contains(direction))
+		{   int rand;
+			while(true)
+			{
+			rand = randomgenerator.nextInt(4);
+			if(!previousrandoms.contains(String.valueOf(rand)))
+			{
+			 previousrandoms.add(String.valueOf(rand));
+			 if(previousrandoms.size()==4)
+			   previousrandoms = new ArrayList<String>();
+			 break;
+			}
+			}
+			direct = directions.get(rand);
+		}
+		return direct;
+		
+	}
 	}
 
-}
