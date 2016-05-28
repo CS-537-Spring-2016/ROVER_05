@@ -1,5 +1,6 @@
 package swarmBots;
 
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,7 +23,7 @@ import communication.RoverCommunication;
 import enums.RoverDriveType;
 import enums.RoverToolType;
 import enums.Terrain;
-
+import enums.Science;
 /**
  * The seed that this program is built on is a chat program example found here:
  * http://cs.lmu.edu/~ray/notes/javanetexamples/ Many thanks to the authors for
@@ -53,6 +54,8 @@ public class ROVER_05 {
 	String direction = west;
 	ArrayList<String> previousrandoms = new ArrayList<String>();
 	
+	//Scan Crystal 
+	List<Coord> crystalCoordinates = new ArrayList<Coord>();
 	/* Communication Module*/
     RoverCommunication rocom;
     
@@ -172,11 +175,30 @@ public class ROVER_05 {
 			this.doScan();
 			scanMap.debugPrintMap();
 
+						
+
+//	     	out.println("TIMER");
+//	     	
+//	        line = in.readLine();
+//		    int time = 0;
+//			if (line == null) {
+//				System.out.println(rovername + " check connection to server");
+//				line = "";
+//			}
+//			if (line.startsWith("TIMER")) {
+//				String timeRemaining = line.substring(6);
+//				time = Integer.parseInt(timeRemaining);
+//				System.out.println(rovername + " timeRemaining: " + timeRemaining);
+//			}
+
 			// MOVING
+
 
 			MapTile[][] scanMapTiles = scanMap.getScanMap();
 
-			make_a_move(scanMapTiles, currentLoc);
+			move_Rover(scanMapTiles, currentLoc);
+			
+			
 			// another call for current location
 			out.println("LOC");
 			line = in.readLine();
@@ -194,6 +216,7 @@ public class ROVER_05 {
 			
 			
             /* ********* Detect and Share Science by Shay ***************/
+			//Scanning 11*11
 			doScan();
             rocom.detectAndShare(scanMap.getScanMap(), currentLoc, 5);
             /* *************************************************/
@@ -293,6 +316,7 @@ public class ROVER_05 {
 
 	// this takes the LOC response string, parses out the x and y values and
 	// returns a Coord object
+	
 	public static Coord extractLOC(String sStr) {
 		sStr = sStr.substring(4);
 		if (sStr.lastIndexOf(" ") != -1) {
@@ -315,21 +339,22 @@ public class ROVER_05 {
 		client.run();
 	}
 
-
-
 	//  move
 
-	public void move(String direction) {
+	public void move(String direction) 
+	{
 		out.println("MOVE " + direction);
 	}
 
-	// check for sand / rover / wall in the next move
 
-	public boolean isValidMove(MapTile[][] scanMapTiles, String direction) {
+	public boolean CheckCorrectMove(MapTile[][] scanMapTiles, String direction) 
+	{
 		int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
-		int x = centerIndex, y = centerIndex;
-
-		switch (direction) {
+		int x = centerIndex;
+		int y = centerIndex;
+        System.out.println("x"+x+"y"+y);
+		switch (direction)
+		{
 		case "N":
 			y = y - 1;
 			break;
@@ -343,7 +368,8 @@ public class ROVER_05 {
 			x = x - 1;
 			break;
 		}
-
+      // Our Rover is with Wheels so we have to check for SAND,ROCK,PIT and existence of OTHER ROVER and avoid going in that direction
+	  // This statement will return false.
 		if (scanMapTiles[x][y].getTerrain() == Terrain.SAND || scanMapTiles[x][y].getTerrain() == Terrain.NONE||scanMapTiles[x][y].getTerrain() == Terrain.ROCK
 				|| scanMapTiles[x][y].getHasRover() == true)
 			return false;
@@ -351,148 +377,87 @@ public class ROVER_05 {
 		return true;
 	}
 
-	
-	// have we reached a wall ??
-
-	public boolean isWall(MapTile[][] scanMapTiles, String direction) {
-		int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
-		int x = centerIndex, y = centerIndex;
-		switch (direction) {
-		case "N":
-			y = y - 1;
-			break;
-		case "S":
-			y = y + 1;
-			break;
-		case "E":
-			x = x + 1;
-			break;
-		case "W":
-			x = x - 1;
-			break;
-		}
-
-		if (scanMapTiles[x][y].getTerrain() == Terrain.NONE||scanMapTiles[x][y].getTerrain() == Terrain.SAND||scanMapTiles[x][y].getTerrain() == Terrain.ROCK)
-			return true;
-		return false;
-	}
-
-	// if blocked / stuck change the direction
-	public String switchDirection(MapTile[][] scanMapTiles, String direction) {
-		switch (direction) {
-		case "E":
-			return south;
-		case "S":
-			return west;
-		case "N":
-			return east;
-		case "W":
-			return north;
-		default:
-			return null;
-
-		}
-	}
-	
-	public String switchDirectionEdge(MapTile[][] scanMapTiles, String direction) {
-		switch (direction) {
-		case "E":
-			return west;
-		case "S":
-			return east;
-		case "N":
-			return south;
-		case "W":
-			return north;
-		default:
-			return null;
-
-		}
-	}
-
 	// Move
-	public void make_a_move(MapTile[][] scanMapTiles, Coord currentLoc) throws IOException {
+	public void move_Rover(MapTile[][] scanMapTiles, Coord currentLoc) throws IOException //Called by run();
+	{
 		int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
-		int x = centerIndex, y = centerIndex;
-		
-
-     	out.println("TIMER");
-    	String line = in.readLine();
-	    int time = 0;
-		if (line == null) {
-			System.out.println(rovername + " check connection to server");
-			line = "";
-		}
-		if (line.startsWith("TIMER")) {
-			String timeRemaining = line.substring(6);
-			time = Integer.parseInt(timeRemaining);
-			System.out.println(rovername + " timeRemaining: " + timeRemaining);
-		}
-//
-//		if (time <= 120000) {
-//			i = 2;
-//		}
-
-		if (i == 2) {
-
-			int cx = currentLoc.xpos, cy = currentLoc.ypos;
-			int tx = targetLocations[i].xpos, ty = targetLocations[i].ypos;
-
-			if (tx == cx && cy == ty)
-				i++;
-
-			if (cx > tx) {
-				direction = west;
-			}
-
-			else if (cx < tx) {
-				direction = east;
-			} else if (cy > ty) {
-				direction = north;
-			} else if (cy < ty) {
-				direction = south;
-			}
-
-		}
-
-		if (isValidMove(scanMapTiles, direction)) {
+		int x = centerIndex;
+		int y = centerIndex;
+		if (CheckCorrectMove(scanMapTiles, direction)) 
+		{
+			detectCrystalScience(scanMapTiles,currentLoc);//For detecting crystal
 			move(direction);
 
-		} else {
-
-			while (!isValidMove(scanMapTiles, direction)) {
-
-				direction = changeRoverDirection(direction);
+		}
+		else 
+		{
+			while (!CheckCorrectMove(scanMapTiles, direction)) 
+			{
+				direction = changeRoverDirection(direction);//Change the direction since there is a obstacle.
 			}
-			move(direction);
+			
+			move(direction);// Move in the resulting direction(From changeRoverDirection)
 		}
 		
 	}
-	private String changeRoverDirection(String direction) {
-		ArrayList<String> directions = new ArrayList<String>();
+	
+	//Changing Rover Direction
+	private String changeRoverDirection(String direction) //Called by move_Rover();
+	{
+		ArrayList<String> directions = new ArrayList<String>();//Creating an Arraylist to store possible directions -E,W,N and S.
 		directions.add("E");
 		directions.add("W");
 		directions.add("N");
 		directions.add("S");
-		Random randomgenerator = new Random();
+		Random randomgenerator = new Random();//To generate a random direction
 		String direct = null;
-		if (directions.contains(direction))
-		{   int rand;
+		if (directions.contains(direction))//It compares the current direction with the directions in the list
+		{   
+			int rand;
 			while(true)
 			{
-			rand = randomgenerator.nextInt(4);
-			if(!previousrandoms.contains(String.valueOf(rand)))
+			rand = randomgenerator.nextInt(4);//Selecting a random direction for movement.
+			if(!previousrandoms.contains(String.valueOf(rand)))//Checking if the same direction has been selected for the next move. We avoid the same random direction to be repeated twice 
 			{
 			 previousrandoms.add(String.valueOf(rand));
-			 if(previousrandoms.size()==4)
-			   previousrandoms = new ArrayList<String>();
+			 if(previousrandoms.size()==4) //Check if all the four directions have been visited
+			   previousrandoms = new ArrayList<String>();//If visited clear the list
 			 break;
 			}
 			}
-			direct = directions.get(rand);
+			direct = directions.get(rand);//If its a new direction then move to that direction
 		}
 		return direct;
 		
 	}
+	
+	//Scan Crystal Science
+	public void detectCrystalScience(MapTile[][] scanMapTiles, Coord currentLoc)  //Called by move_Rover();
+	 {       
+		 int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
+		 int xPos = currentLoc.xpos - centerIndex;
+		 int yPos = currentLoc.ypos - centerIndex;
+		 System.out.println("xPos"+xPos+"yPos"+yPos);//This gives the current location of the Rover 5
+		 System.out.println("ScanMap Length "+scanMapTiles.length);//Here we are scanning 11*11
+		 int crystalXPosition, crystalYPosition;
+	     for (int x = 0; x < scanMapTiles.length; x++) //Iterating through X coordinate
+	     {
+           for (int y = 0; y < scanMapTiles.length; y++) //Iterating through Y coordinate
+           {
+               if (scanMapTiles[x][y].getScience() == Science.CRYSTAL) //Checking for crystal Science and locating the crystal
+               {
+               		crystalXPosition = xPos + x;
+                   	crystalYPosition = yPos + y;
+		                Coord coord = new Coord(crystalXPosition ,crystalYPosition);//Coord class constructor with two arguments
+		                System.out.println("Crystal position discovered:In "+scanMapTiles[x][y].getTerrain()+" at the position "+coord);
+		                crystalCoordinates.add(coord);
+//		                for(Coord X: crystalCoordinates)
+//		                {
+//		                System.out.println("Crystal Coordiantes:"+X);
+//		                }
+               }
+           }
+	     }
+	 }
 	}
 
