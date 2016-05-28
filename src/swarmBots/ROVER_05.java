@@ -356,15 +356,19 @@ public class ROVER_05 {
 		switch (direction)
 		{
 		case "N":
+			//move to towards north from  current direction
 			y = y - 1;
 			break;
 		case "S":
+			//move to towards south from  current direction
 			y = y + 1;
 			break;
 		case "E":
+			//move to towards east from  current direction
 			x = x + 1;
 			break;
 		case "W":
+			//move to towards west from  current direction
 			x = x - 1;
 			break;
 		}
