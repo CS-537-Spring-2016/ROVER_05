@@ -356,15 +356,19 @@ public class ROVER_05 {
 		switch (direction)
 		{
 		case "N":
+			//move to towards north from  current direction
 			y = y - 1;
 			break;
 		case "S":
+			//move to towards south from  current direction
 			y = y + 1;
 			break;
 		case "E":
+			//move to towards east from  current direction
 			x = x + 1;
 			break;
 		case "W":
+			//move to towards west from  current direction
 			x = x - 1;
 			break;
 		}
@@ -437,7 +441,7 @@ public class ROVER_05 {
 		 int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 		 int xPos = currentLoc.xpos - centerIndex;
 		 int yPos = currentLoc.ypos - centerIndex;
-		 System.out.println("xPos"+xPos+"yPos"+yPos);//This gives the current location of the Rover 5
+		 System.out.println("xPos"+xPos+"yPos"+yPos);//This gives the current location 
 		 System.out.println("ScanMap Length "+scanMapTiles.length);//Here we are scanning 11*11
 		 int crystalXPosition, crystalYPosition;
 	     for (int x = 0; x < scanMapTiles.length; x++) //Iterating through X coordinate
@@ -448,7 +452,7 @@ public class ROVER_05 {
                {
                		crystalXPosition = xPos + x;
                    	crystalYPosition = yPos + y;
-		                Coord coord = new Coord(crystalXPosition ,crystalYPosition);//Coord class constructor with two arguments
+		                Coord coord = new Coord(crystalXPosition ,crystalYPosition);//Coordination class constructor with two arguments
 		                System.out.println("Crystal position discovered:In "+scanMapTiles[x][y].getTerrain()+" at the position "+coord);
 		                crystalCoordinates.add(coord);
 //		                for(Coord X: crystalCoordinates)
