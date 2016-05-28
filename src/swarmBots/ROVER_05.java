@@ -452,7 +452,7 @@ public class ROVER_05 {
                {
                		crystalXPosition = xPos + x;
                    	crystalYPosition = yPos + y;
-		                Coord coord = new Coord(crystalXPosition ,crystalYPosition);//Coord class constructor with two arguments
+		                Coord coord = new Coord(crystalXPosition ,crystalYPosition);//Coordination class constructor with two arguments
 		                System.out.println("Crystal position discovered:In "+scanMapTiles[x][y].getTerrain()+" at the position "+coord);
 		                crystalCoordinates.add(coord);
 //		                for(Coord X: crystalCoordinates)
