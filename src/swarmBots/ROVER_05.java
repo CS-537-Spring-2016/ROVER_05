@@ -441,7 +441,7 @@ public class ROVER_05 {
 		 int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 		 int xPos = currentLoc.xpos - centerIndex;
 		 int yPos = currentLoc.ypos - centerIndex;
-		 System.out.println("xPos"+xPos+"yPos"+yPos);//This gives the current location of the Rover 5
+		 System.out.println("xPos"+xPos+"yPos"+yPos);//This gives the current location 
 		 System.out.println("ScanMap Length "+scanMapTiles.length);//Here we are scanning 11*11
 		 int crystalXPosition, crystalYPosition;
 	     for (int x = 0; x < scanMapTiles.length; x++) //Iterating through X coordinate
