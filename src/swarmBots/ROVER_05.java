@@ -30,7 +30,7 @@ import enums.Science;
  * publishing their code examples
  */
 
-// communication thread to recive messages 
+// communication thread to receive messages 
 //thread , while loop , stream 
 
 public class ROVER_05 {
