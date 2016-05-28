@@ -52,7 +52,7 @@ public class ROVER_05 {
 	String east = "E";
 	String west = "W";
 	String direction = west;
-	ArrayList<String> previousrandoms = new ArrayList<String>();
+	ArrayList<String> previousrandoms = new ArrayList<String>();//To check for the previous random direction
 	
 	//Scan Crystal 
 	List<Coord> crystalCoordinates = new ArrayList<Coord>();
@@ -339,7 +339,7 @@ public class ROVER_05 {
 		client.run();
 	}
 
-	//  move
+	//move
 
 	public void move(String direction) 
 	{
@@ -408,7 +408,7 @@ public class ROVER_05 {
 	//Changing Rover Direction
 	private String changeRoverDirection(String direction) //Called by move_Rover();
 	{
-		ArrayList<String> directions = new ArrayList<String>();//Creating an Arraylist to store possible directions -E,W,N and S.
+		ArrayList<String> directions = new ArrayList<String>();//Creating an Array list to store possible directions -E,W,N and S.
 		directions.add("E");
 		directions.add("W");
 		directions.add("N");
