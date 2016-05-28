@@ -434,7 +434,7 @@ public class ROVER_05 {
 		return direct;
 		
 	}
-	
+	//Changed
 	//Scan Crystal Science
 	public void detectCrystalScience(MapTile[][] scanMapTiles, Coord currentLoc)  //Called by move_Rover();
 	 {       
